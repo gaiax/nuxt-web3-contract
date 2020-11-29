@@ -1,10 +1,19 @@
 pragma solidity ^0.5.12;
+
 contract SingleNumRegister {
-    uint storedData;
-    function set(uint x) public{
-        storedData = x;
+    struct StoreNumber {
+        address from;
+        uint256 number;
     }
-    function get() public view returns (uint retVal){
-        return storedData;
+
+    StoreNumber[] public storeNumbers;
+
+    function set(uint256 num) public {
+        storeNumbers.push(StoreNumber(msg.sender, num));
+    }
+
+    function get() public view returns (uint256) {
+        uint256 index = storeNumbers.length - 1;
+        return storeNumbers[index].number;
     }
 }
